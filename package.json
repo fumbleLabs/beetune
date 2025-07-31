@@ -1,0 +1,31 @@
+{
+  "name": "beetune",
+  "version": "0.1.0",
+  "description": "Open-source resume analysis and LaTeX formatting engine",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"No JavaScript tests specified\" && exit 0",
+    "build": "echo \"No JavaScript build process\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fumbl3b/beetune.git"
+  },
+  "keywords": [
+    "resume",
+    "latex",
+    "job-analysis",
+    "career",
+    "cv",
+    "python"
+  ],
+  "author": "Harry Winkler <harry@fumblebee.site>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fumbl3b/beetune/issues"
+  },
+  "homepage": "https://github.com/fumbl3b/beetune#readme",
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

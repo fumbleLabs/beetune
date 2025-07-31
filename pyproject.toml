@@ -1,0 +1,78 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "beetune"
+version = "0.1.0"
+description = "Open-source resume analysis and LaTeX formatting engine"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+authors = [
+    {name = "Harry Winkler", email = "harry@fumblebee.site"},
+]
+keywords = ["resume", "latex", "job-analysis", "career", "cv"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Office/Business",
+    "Topic :: Text Processing :: Markup :: LaTeX",
+]
+
+dependencies = [
+    "openai>=1.0.0",
+    "python-magic>=0.4.27",
+    "python-docx>=0.8.11",
+    "PyPDF2>=3.0.0",
+    "python-dotenv>=1.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-mock>=3.10.0",
+    "pytest-cov>=4.0.0",
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+    "mypy>=1.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/fumbl3b/beetune"
+Documentation = "https://github.com/fumbl3b/beetune#readme"
+Repository = "https://github.com/fumbl3b/beetune.git"
+"Bug Tracker" = "https://github.com/fumbl3b/beetune/issues"
+
+[project.scripts]
+beetune = "beetune.cli:main"
+
+[tool.black]
+line-length = 100
+target-version = ['py38']
+
+[tool.ruff]
+target-version = "py38"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "B", "A", "C4", "T20"]
+ignore = [
+    "W291",  # trailing whitespace
+    "W292",  # no newline at end of file  
+    "W293",  # blank line contains whitespace
+    "B904",  # raise from errors
+]
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
