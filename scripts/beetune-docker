@@ -12,7 +12,7 @@ DOCKER_OPTS=(
     --interactive
     --volume "$PWD:/work"
     --workdir /work
-    --user "$(id -u):$(id -g)"
+    --volume "$HOME/.beetune-docker:/home/beetune/.beetune"
 )
 
 # Pass through environment variables for API keys
@@ -29,10 +29,12 @@ if [[ -t 1 ]]; then
     DOCKER_OPTS+=(--tty)
 fi
 
-# Pull image if it doesn't exist locally
+# Pull image if it doesn't exist locally (skip for local testing)
 if ! docker image inspect "$BEETUNE_IMAGE" >/dev/null 2>&1; then
     echo "Pulling beetune image: $BEETUNE_IMAGE"
-    docker pull "$BEETUNE_IMAGE"
+    if ! docker pull "$BEETUNE_IMAGE" 2>/dev/null; then
+        echo "Warning: Could not pull $BEETUNE_IMAGE, assuming local image exists"
+    fi
 fi
 
 # Run beetune with all passed arguments

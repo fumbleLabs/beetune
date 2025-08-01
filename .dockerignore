@@ -47,9 +47,11 @@ ehthumbs.db
 Thumbs.db
 
 # Development
-*.md
 docs/
 examples/
 tests/
 .env.local
 config.local.toml
+
+# Allow README.md for package metadata
+!README.md
