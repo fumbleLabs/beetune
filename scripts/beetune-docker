@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Default values
+BEETUNE_VERSION="${BEETUNE_VERSION:-latest}"
+BEETUNE_REGISTRY="${BEETUNE_REGISTRY:-ghcr.io/fumbl3b}"
+BEETUNE_IMAGE="${BEETUNE_REGISTRY}/beetune:${BEETUNE_VERSION}"
+
+# Docker run configuration
+DOCKER_OPTS=(
+    --rm
+    --interactive
+    --volume "$PWD:/work"
+    --workdir /work
+    --user "$(id -u):$(id -g)"
+)
+
+# Pass through environment variables for API keys
+if [[ -n "${OPENAI_API_KEY:-}" ]]; then
+    DOCKER_OPTS+=(--env OPENAI_API_KEY)
+fi
+
+if [[ -n "${ANTHROPIC_API_KEY:-}" ]]; then
+    DOCKER_OPTS+=(--env ANTHROPIC_API_KEY)
+fi
+
+# Enable TTY if stdout is a terminal
+if [[ -t 1 ]]; then
+    DOCKER_OPTS+=(--tty)
+fi
+
+# Pull image if it doesn't exist locally
+if ! docker image inspect "$BEETUNE_IMAGE" >/dev/null 2>&1; then
+    echo "Pulling beetune image: $BEETUNE_IMAGE"
+    docker pull "$BEETUNE_IMAGE"
+fi
+
+# Run beetune with all passed arguments
+exec docker run "${DOCKER_OPTS[@]}" "$BEETUNE_IMAGE" "$@"

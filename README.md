@@ -1,4 +1,4 @@
-# beetune
+# 🐝 beetune
 
 **beetune** is an open-source resume analysis and LaTeX formatting engine. It provides powerful tools for processing resumes, analyzing job descriptions, and generating professionally formatted documents.
 
@@ -12,13 +12,73 @@
 
 ## Installation
 
+### 🐳 Docker (Recommended)
+
+The easiest way to use beetune is via Docker, which includes a complete LaTeX environment:
+
+```bash
+# One-line install (requires Docker)
+curl -sSL https://raw.githubusercontent.com/fumbl3b/beetune/main/scripts/install.sh | bash
+
+# Or pull the image directly
+docker pull ghcr.io/fumbl3b/beetune:latest
+
+# Set your API key
+export OPENAI_API_KEY=your_api_key_here
+
+# Use beetune normally
+beetune --help
+beetune version
+```
+
+### 🧪 Library Only (pip)
+
+For library usage without LaTeX compilation:
+
 ```bash
 pip install beetune
 ```
 
+**Note**: The pip version excludes LaTeX compilation. For PDF generation, use the Docker version or install a LaTeX distribution separately.
+
 ## Quick Start
 
-### CLI Setup
+### 🐳 Docker CLI
+
+```bash
+# Configure your AI provider
+beetune setup
+
+# Analyze a job description
+beetune analyze-job job_description.txt
+
+# Format a resume as LaTeX/PDF
+beetune format-resume resume.pdf --output resume.tex
+
+# Check configuration
+beetune config --list
+```
+
+### 🚀 API Server
+
+Run beetune as a web service (great for business platforms):
+
+```bash
+# Development server
+docker run -p 8000:8000 -e OPENAI_API_KEY=$OPENAI_API_KEY ghcr.io/fumbl3b/beetune:latest server
+
+# Or with docker-compose
+docker-compose up beetune-api
+```
+
+Available endpoints:
+- `POST /analyze/job` - Analyze job descriptions
+- `POST /resume/extract-text` - Extract text from uploaded files
+- `POST /resume/suggest-improvements` - AI-powered resume analysis
+- `POST /convert/latex` - Compile LaTeX to PDF
+- `GET /health` - Health check
+
+### CLI Setup (pip version)
 
 First, configure your AI provider:
 

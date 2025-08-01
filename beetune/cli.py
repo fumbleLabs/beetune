@@ -261,6 +261,44 @@ def config_command(args):
         return 1
 
 
+def server_command(args):
+    """Handle the server command."""
+    try:
+        # Import server module
+        from .server import main as server_main
+        import sys
+        
+        # Prepare arguments for server
+        server_args = [
+            '--host', args.host,
+            '--port', str(args.port)
+        ]
+        
+        if args.debug:
+            server_args.append('--debug')
+        
+        # Temporarily replace sys.argv for server argument parsing
+        original_argv = sys.argv
+        sys.argv = ['beetune-server'] + server_args
+        
+        try:
+            print(f"🚀 Starting beetune server on {args.host}:{args.port}")
+            if args.debug:
+                print("🐛 Debug mode enabled")
+            server_main()
+            return 0
+        finally:
+            sys.argv = original_argv
+            
+    except ImportError:
+        print("Error: Server functionality not available.")
+        print("Install with server dependencies: pip install beetune[server]")
+        return 1
+    except Exception as e:
+        print(f"Error starting server: {e}")
+        return 1
+
+
 def main():
     """Main CLI entry point."""
     parser = argparse.ArgumentParser(
@@ -329,6 +367,28 @@ def main():
     # version command
     subparsers.add_parser('version', help='Show version information')
     
+    # server command
+    server_parser = subparsers.add_parser(
+        'server',
+        help='Start the web API server'
+    )
+    server_parser.add_argument(
+        '--host',
+        default='0.0.0.0',
+        help='Host to bind to (default: 0.0.0.0)'
+    )
+    server_parser.add_argument(
+        '--port',
+        type=int,
+        default=8000,
+        help='Port to bind to (default: 8000)'
+    )
+    server_parser.add_argument(
+        '--debug',
+        action='store_true',
+        help='Enable debug mode'
+    )
+    
     args = parser.parse_args()
     
     if args.command == 'setup':
@@ -343,6 +403,8 @@ def main():
         from . import __version__
         print(f"beetune {__version__}")
         return 0
+    elif args.command == 'server':
+        return server_command(args)
     else:
         parser.print_help()
         return 1

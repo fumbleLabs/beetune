@@ -1,13 +1,12 @@
-FROM python:3.11-slim
+# Use official TeX Live image for complete LaTeX environment
+FROM texlive/texlive:2024 as base
 
-# Install system dependencies including LaTeX
+# Install Python and required system packages
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-    texlive-latex-base \
-    texlive-latex-recommended \
-    texlive-latex-extra \
-    texlive-fonts-recommended \
-    texlive-fonts-extra \
+    python3 \
+    python3-pip \
+    python3-venv \
     libmagic1 \
     libmagic-dev \
     && rm -rf /var/lib/apt/lists/*
@@ -15,20 +14,20 @@ RUN apt-get update && \
 # Set working directory
 WORKDIR /app
 
-# Copy requirements and install Python dependencies
-COPY pyproject.toml .
-RUN pip install --no-cache-dir -e .
+# Copy project files
+COPY pyproject.toml README.md LICENSE ./
+COPY beetune/ ./beetune/
 
-# Copy application code
-COPY . .
+# Install beetune with server dependencies
+RUN pip3 install --no-cache-dir .[server]
 
 # Create non-root user for security
 RUN groupadd -r beetune && useradd -r -g beetune beetune
 RUN chown -R beetune:beetune /app
 USER beetune
 
-# Expose port for web service
-EXPOSE 8000
+# Set up working directory for user files
+WORKDIR /work
 
-# Command to run the application
-CMD ["python", "-m", "beetune.server"]
+# Default entrypoint
+ENTRYPOINT ["beetune"]
