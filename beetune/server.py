@@ -5,22 +5,21 @@ Replicates the functionality of the previous resume-backend with
 Docker-first LaTeX compilation and file processing.
 """
 
+import base64
 import logging
 import os
-from typing import Dict, Any, Optional
-from flask import Flask, request, jsonify, send_file
-from werkzeug.utils import secure_filename
-from werkzeug.exceptions import RequestEntityTooLarge
 import tempfile
-import base64
 from io import BytesIO
 
+from flask import Flask, jsonify, request, send_file
+from werkzeug.exceptions import RequestEntityTooLarge
+from werkzeug.utils import secure_filename
+
+from .analyzers import JobAnalyzer, ResumeAnalyzer
 from .config import get_config
 from .extractors import FileProcessor, FileUploadSecurity
-from .analyzers import JobAnalyzer, ResumeAnalyzer
 from .formatters import ResumeFormatter, UnifiedLatexConverter
 from .utils import BeetuneException
-
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)

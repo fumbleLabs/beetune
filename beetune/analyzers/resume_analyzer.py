@@ -7,9 +7,10 @@ and optimize content for specific job descriptions.
 
 import logging
 from typing import Optional
+
 from openai import OpenAI
 
-from ..prompts import gen_resume_suggestions, gen_resume_application, PromptTone, OutputFormat
+from ..prompts import OutputFormat, PromptTone, gen_resume_application, gen_resume_suggestions
 from ..utils import OpenAIError
 
 logger = logging.getLogger(__name__)

@@ -6,12 +6,12 @@ to analyze resumes, job descriptions, and generate improvements.
 """
 
 from .generators import (
-    PromptTone,
     OutputFormat,
-    gen_keywords,
+    PromptTone,
     gen_benefits,
-    gen_resume_suggestions,
+    gen_keywords,
     gen_resume_application,
+    gen_resume_suggestions,
 )
 
 __all__ = [

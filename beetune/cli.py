@@ -7,15 +7,14 @@ and analyzing job descriptions.
 """
 
 import argparse
-import os
 import sys
-from pathlib import Path
 from getpass import getpass
+from pathlib import Path
 
-from . import FileProcessor, ResumeFormatter, JobAnalyzer
+from . import FileProcessor, JobAnalyzer, ResumeFormatter
+from .config import AIProvider, ConfigError, get_config
 from .formatters import LaTeXStyle
 from .utils import BeetuneException
-from .config import Config, AIProvider, ConfigError, get_config
 
 
 def format_resume_command(args):
@@ -265,8 +264,9 @@ def server_command(args):
     """Handle the server command."""
     try:
         # Import server module
-        from .server import main as server_main
         import sys
+
+        from .server import main as server_main
         
         # Prepare arguments for server
         server_args = [

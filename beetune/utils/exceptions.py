@@ -8,7 +8,7 @@ during resume processing, file handling, and analysis operations.
 from typing import Optional
 
 
-class BeetuneException(Exception):
+class BeetuneError(Exception):
     """Base exception class for all beetune-related errors."""
 
     def __init__(self, message: str, detail: Optional[str] = None):
@@ -17,28 +17,28 @@ class BeetuneException(Exception):
         super().__init__(self.message)
 
 
-class ValidationError(BeetuneException):
+class ValidationError(BeetuneError):
     """Raised when input validation fails."""
 
     def __init__(self, message: str, detail: Optional[str] = None):
         super().__init__(message, detail)
 
 
-class ProcessingError(BeetuneException):
+class ProcessingError(BeetuneError):
     """Raised when file or data processing fails."""
 
     def __init__(self, message: str, detail: Optional[str] = None):
         super().__init__(message, detail)
 
 
-class OpenAIError(BeetuneException):
+class OpenAIError(BeetuneError):
     """Raised when OpenAI API calls fail."""
 
     def __init__(self, message: str, detail: Optional[str] = None):
         super().__init__(message, detail)
 
 
-class LaTeXError(BeetuneException):
+class LaTeXError(BeetuneError):
     """Raised when LaTeX compilation fails."""
 
     def __init__(self, message: str, detail: Optional[str] = None):

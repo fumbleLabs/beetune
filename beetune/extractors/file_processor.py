@@ -4,9 +4,10 @@ File text extraction utilities for beetune.
 Provides secure text extraction from various file formats including PDF, DOCX, and LaTeX.
 """
 
+from typing import BinaryIO
+
 import docx
 import PyPDF2
-from typing import BinaryIO
 
 from ..utils import ProcessingError
 

@@ -6,9 +6,9 @@ Handles storing and retrieving API keys, endpoints, and other user settings.
 
 import json
 import os
-from pathlib import Path
-from typing import Dict, Optional, Any
 from enum import Enum
+from pathlib import Path
+from typing import Any, Dict, Optional
 
 from .utils import BeetuneException
 

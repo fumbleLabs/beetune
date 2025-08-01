@@ -5,9 +5,10 @@ Basic usage example for beetune.
 This script demonstrates how to use beetune for resume processing and analysis.
 """
 
-from beetune import FileProcessor, ResumeFormatter, JobAnalyzer
-from beetune.formatters import LaTeXStyle
 import os
+
+from beetune import FileProcessor, JobAnalyzer, ResumeFormatter
+from beetune.formatters import LaTeXStyle
 
 
 def main():

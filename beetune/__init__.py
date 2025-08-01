@@ -13,12 +13,12 @@ __author__ = "Harry Winkler"
 __email__ = "harry@fumblebee.site"
 
 # Core functionality imports
+from .analyzers import JobAnalyzer, ResumeAnalyzer
+from .config import AIProvider, Config, ConfigError, get_config
 from .extractors import FileProcessor, FileUploadSecurity
 from .formatters import ResumeFormatter, UnifiedLatexConverter
-from .analyzers import JobAnalyzer, ResumeAnalyzer
-from .prompts import PromptTone, OutputFormat, gen_keywords, gen_benefits
-from .utils import BeetuneException, ValidationError, ProcessingError
-from .config import Config, AIProvider, ConfigError, get_config
+from .prompts import OutputFormat, PromptTone, gen_benefits, gen_keywords
+from .utils import BeetuneException, ProcessingError, ValidationError
 
 __all__ = [
     # Version info

@@ -1,9 +1,11 @@
 """Tests for beetune extractors module."""
 
-import pytest
 from io import BytesIO
+
+import pytest
+
 from beetune.extractors import FileProcessor, FileUploadSecurity
-from beetune.utils import ValidationError, ProcessingError
+from beetune.utils import ProcessingError, ValidationError
 
 
 class TestFileProcessor:

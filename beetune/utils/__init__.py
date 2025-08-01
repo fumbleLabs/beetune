@@ -7,10 +7,10 @@ validation helpers, and shared functionality.
 
 from .exceptions import (
     BeetuneException,
-    ValidationError,
-    ProcessingError,
-    OpenAIError,
     LaTeXError,
+    OpenAIError,
+    ProcessingError,
+    ValidationError,
 )
 
 __all__ = [

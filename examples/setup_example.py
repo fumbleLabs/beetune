@@ -6,7 +6,8 @@ This script shows how to programmatically configure beetune
 without using the interactive CLI setup command.
 """
 
-from beetune.config import Config, AIProvider
+from beetune.config import AIProvider, Config
+
 
 def setup_openai_example():
     """Example: Set up OpenAI configuration."""

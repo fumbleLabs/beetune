@@ -7,9 +7,10 @@ and other relevant information for resume optimization.
 
 import logging
 from typing import Dict, Optional
+
 from openai import OpenAI
 
-from ..prompts import gen_keywords, gen_benefits
+from ..prompts import gen_benefits, gen_keywords
 from ..utils import OpenAIError
 
 logger = logging.getLogger(__name__)

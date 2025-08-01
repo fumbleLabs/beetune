@@ -2,9 +2,9 @@
 Entry point for running beetune as a module.
 """
 
-import sys
 import argparse
-from .server import app, create_app
+
+from .server import app
 
 
 def main():

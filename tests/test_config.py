@@ -1,12 +1,11 @@
 """Tests for beetune configuration management."""
 
-import json
-import os
 import tempfile
 from pathlib import Path
+
 import pytest
 
-from beetune.config import Config, AIProvider, ConfigError
+from beetune.config import AIProvider, Config, ConfigError
 
 
 class TestConfig:

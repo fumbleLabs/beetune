@@ -5,9 +5,11 @@ Provides comprehensive validation for file uploads including extension validatio
 MIME type checking, and secure filename generation.
 """
 
-from typing import Dict, Set, BinaryIO, Optional
+from typing import BinaryIO, Dict, Optional, Set
+
 import magic
-from ..utils import ValidationError, ProcessingError
+
+from ..utils import ProcessingError, ValidationError
 
 
 class FileUploadSecurity:

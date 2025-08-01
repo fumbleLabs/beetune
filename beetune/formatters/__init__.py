@@ -5,7 +5,7 @@ This module provides tools for converting resumes to professionally formatted
 LaTeX documents and compiling them to PDF.
 """
 
-from .resume_formatter import ResumeFormatter, LaTeXStyle
 from .latex_converter import UnifiedLatexConverter
+from .resume_formatter import LaTeXStyle, ResumeFormatter
 
 __all__ = ["ResumeFormatter", "LaTeXStyle", "UnifiedLatexConverter"]
