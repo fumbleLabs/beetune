@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  beetune-api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - FLASK_ENV=development
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+    volumes:
+      # Mount source for development
+      - .:/app
+      - /app/.git  # Exclude git directory
+    command: python -m beetune.server --host 0.0.0.0 --port 8000 --debug
+    
+  beetune-prod:
+    build: .
+    ports:
+      - "8001:8000"
+    environment:
+      - FLASK_ENV=production
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+    command: gunicorn --bind 0.0.0.0:8000 --workers 4 beetune.server:app

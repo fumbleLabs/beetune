@@ -1,0 +1,54 @@
+About the job
+Job Posting - Salary Range: $63,964 - $110,872
+
+Company Description
+
+Experian is a global data and technology company, powering opportunities for people and businesses around the world. We help to redefine lending practices, uncover and prevent fraud, simplify healthcare, create digital marketing solutions, and gain deeper insights into the automotive market, all using our unique combination of data, analytics and software. We also assist millions of people to realise their financial goals and help them to save time and money.
+
+We operate across a range of markets, from financial services to healthcare, automotive, agrifinance, insurance, and many more industry segments.
+
+We invest in people and new advanced technologies to unlock the power of data and to innovate. A FTSE 100 Index company listed on the London Stock Exchange (EXPN), we have a team of 23,300 people across 32 countries. Our corporate headquarters are in Dublin, Ireland. Learn more at experianplc.com.
+
+Job Description
+
+Join Experian as a Mobile Developer – Make an Impact at Scale
+
+Are you looking for the agility of a startup combined with the stability and resources of an established industry leader? At Experian Consumer Services (ECS), our Mobile Teams offer just that. We're the driving force behind trusted data services worldwide, from credit scores and fraud protection to identity services and advanced analytics.
+
+Our mobile apps are used by millions daily, giving users real-time access to important personal data. We pride ourselves on building feature-rich, stable native applications while embracing the latest mobile technologies. Our customers expect the latest innovations, and our team delivers.
+
+Why Join Us? You'll be part of a collaborative team, including native mobile, web, backend, and SDET engineers—where experimentation and new ideas are encouraged. Work remote from anywhere in the US. You will report to a Software Engineering Director.
+
+What You'll Do
+
+Develop mobile applications through the full software lifecycle—from design to deployment
+Write clean, scalable code, participate in code reviews, and collaborate on API design
+Implement automated, integration, and regression tests with modern testing techniques (e.g., mocking, stubbing)
+Troubleshoot issues, conduct performance testing, and use profiling tools for diagnostics
+Create detailed test plans, test cases, and contribute to quality improvements
+
+Qualifications
+
+Qualifications:
+
+Bachelor's degree in Computer Science or related field, with 1+ years of Android development using Kotlin and Java
+Proficient in Android architecture (MVVM), UI/UX best practices, and frameworks like RxJava, Dagger, and Retrofit
+Experience integrating and testing RESTful APIs, with an understanding of mocking, stubbing, and white-box testing
+Hands-on with automated testing tools (e.g., Cucumber, JMeter) and performance monitoring tools like Splunk
+Familiarity with microservices, SQL/NoSQL databases, and testing scalable mobile and backend systems
+
+Benefits/Perks
+
+Additional Information
+
+Great compensation package and bonus plan
+Core benefits including medical, dental, vision, and matching 401K
+Flexible work environment, ability to work remote, hybrid or in-office
+Flexible time off including volunteer time off, vacation, sick and 12-paid holidays
+Explore all our exciting benefits here: https://yourexperianbenefits.com/cand-index.html
+
+Our uniqueness is that we celebrate yours. Experian's culture and people are important differentiators. We take our people agenda very seriously and focus on what matters; DEI, work/life balance, development, authenticity, collaboration, wellness, reward & recognition, volunteering... the list goes on. Experian's people first approach is award-winning; World's Best Workplaces™ 2024 (Fortune Top 25), Great Place To Work™ in 24 countries, and Glassdoor Best Places to Work 2024 to name a few. Check out Experian Life on social or our Careers Site to understand why.
+
+Our compensation reflects the cost of labor across several U.S. geographic markets. The base pay range for this position is listed above. Within this range, individual pay is determined by work location and additional factors such as job-related skills, experience, and education. You will be also eligible for a variable pay opportunity.
+
+Experian is proud to be an Equal Opportunity Employer for all groups protected under applicable federal, state and local law, including protected veterans and individuals with disabilities. Innovation is an important part of Experian's DNA and practices, and our inclusive workforce allows everyone to succeed and bring their whole self to work. If you have a disability or special need that requires accommodation, please let us know at the earliest opportunity.
