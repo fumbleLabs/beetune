@@ -46,7 +46,7 @@ jobs:
       with:
         images: |
           ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          fumblelabs/beetune
+          fumbl3b/beetune
         tags: |
           type=ref,event=branch
           type=ref,event=pr
