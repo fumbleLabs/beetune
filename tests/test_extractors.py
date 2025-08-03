@@ -29,7 +29,7 @@ class TestFileProcessor:
         assert result == tex_content
 
 
-class TestFileUploadSecurity:
+class TestFileSecurity:
     """Test file upload security functionality."""
 
     def test_validate_empty_filename(self):
