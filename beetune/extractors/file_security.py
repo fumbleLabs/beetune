@@ -82,6 +82,7 @@ class FileUploadSecurity:
         # Basic secure filename implementation
         # Remove path separators and other dangerous characters
         import re
+        filename = filename.replace("../", "_")
         filename = re.sub(r'[^a-zA-Z0-9._-]', '_', filename)
         
         # Remove leading dots and underscores

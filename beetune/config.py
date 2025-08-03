@@ -10,7 +10,7 @@ from enum import Enum
 from pathlib import Path
 from typing import Any, Dict, Optional
 
-from .utils import BeetuneException
+from .utils import BeetuneError
 
 
 class AIProvider(Enum):
@@ -21,7 +21,7 @@ class AIProvider(Enum):
     CUSTOM = "custom"
 
 
-class ConfigError(BeetuneException):
+class ConfigError(BeetuneError):
     """Configuration-related errors."""
     pass
 

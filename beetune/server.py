@@ -15,10 +15,10 @@ from flask import Flask, jsonify, request, send_file
 from werkzeug.exceptions import RequestEntityTooLarge
 from werkzeug.utils import secure_filename
 
-from .analyzers import JobAnalyzer, ResumeAnalyzer
+from .processors import TextAnalyzer
 from .config import get_config
 from .extractors import FileProcessor, FileUploadSecurity
-from .formatters import ResumeFormatter, UnifiedLatexConverter
+from .renderers import DocumentStyler, UnifiedLatexConverter
 from .utils import BeetuneException
 
 # Configure logging
@@ -80,7 +80,7 @@ def handle_file_too_large(e):
     }), 413
 
 
-@app.errorhandler(BeetuneException)
+@app.errorhandler(BeetuneError)
 def handle_beetune_exception(e):
     """Handle beetune-specific exceptions."""
     return jsonify({
@@ -286,8 +286,8 @@ def suggest_resume_improvements():
         }), 500
 
 
-@app.route('/resume/apply-improvements', methods=['POST'])
-def apply_resume_improvements():
+@app.route('/document/apply-improvements', methods=['POST'])
+def apply_document_improvements():
     """
     Generate improved LaTeX resume based on analysis.
     

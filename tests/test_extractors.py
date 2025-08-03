@@ -60,4 +60,4 @@ class TestFileUploadSecurity:
         
         # Test dangerous characters
         result = security._secure_filename("../../../etc/passwd")
-        assert result == "___etc_passwd"
+        assert result == "etc_passwd"

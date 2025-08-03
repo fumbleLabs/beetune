@@ -8,7 +8,7 @@ This script demonstrates how to use beetune for resume processing and analysis.
 import os
 
 from beetune import FileProcessor, JobAnalyzer, ResumeFormatter
-from beetune.formatters import LaTeXStyle
+from beetune.renderers import LaTeXStyle
 
 
 def main():
@@ -59,20 +59,21 @@ def main():
     latex_content = formatter.format_resume(resume_text, style=LaTeXStyle.MODERN)
     print(f"✅ Generated LaTeX document ({len(latex_content)} characters)")
     
-    # 2. Analyze job description (requires OpenAI API key)
+    # 2. Analyze document (requires OpenAI API key)
     openai_key = os.getenv("OPENAI_API_KEY")
     if openai_key:
-        print("\n2. Analyzing job description...")
-        analyzer = JobAnalyzer(openai_key)
+        print("\n2. Analyzing document...")
+        analyzer = TextAnalyzer(openai_key)
         
         try:
-            analysis = analyzer.analyze_job_description(job_description)
+            analysis = analyzer.analyze(job_description)
             print(f"✅ Keywords: {analysis['keywords'][:100]}...")
             print(f"✅ Benefits: {analysis['benefits'][:100]}...")
         except Exception as e:
             print(f"❌ Analysis failed: {e}")
     else:
-        print("\n2. Skipping job analysis (OPENAI_API_KEY not set)")
+        print("\n2. Skipping analysis (OPENAI_API_KEY not set)")
+")
     
     # 3. File processing example
     print("\n3. File processing capabilities:")

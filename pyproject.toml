@@ -74,9 +74,9 @@ ignore = [
     "W292",  # no newline at end of file  
     "W293",  # blank line contains whitespace
     "B904",  # raise from errors
-    "T201",
-    "E501",
-    "F841"
+    "T201",  # no prints
+    "E501",  # idk i forget
+    "F841"   # idk on this either
 ]
 
 [tool.mypy]

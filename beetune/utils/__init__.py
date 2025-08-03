@@ -6,7 +6,7 @@ validation helpers, and shared functionality.
 """
 
 from .exceptions import (
-    BeetuneException,
+    BeetuneError,
     LaTeXError,
     OpenAIError,
     ProcessingError,
@@ -14,7 +14,7 @@ from .exceptions import (
 )
 
 __all__ = [
-    "BeetuneException",
+    "BeetuneError",
     "ValidationError", 
     "ProcessingError",
     "OpenAIError",

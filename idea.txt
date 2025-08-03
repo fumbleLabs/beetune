@@ -1,0 +1,4 @@
+this ultimately is a product for conversion, with beautiful print ready documents.  A virtual editor/publisher.
+
+users should be able to take a rough draft, or any document and do very little yet receive a beautiful item in return.
+

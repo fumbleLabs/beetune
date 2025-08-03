@@ -13,8 +13,8 @@ from pathlib import Path
 
 from . import FileProcessor, JobAnalyzer, ResumeFormatter
 from .config import AIProvider, ConfigError, get_config
-from .formatters import LaTeXStyle
-from .utils import BeetuneException
+from .renderers import LaTeXStyle
+from .utils import BeetuneError
 
 
 def format_resume_command(args):
@@ -86,7 +86,7 @@ def analyze_job_command(args):
         
         return 0
         
-    except (BeetuneException, ConfigError) as e:
+    except (BeetuneError, ConfigError) as e:
         print(f"Error: {e}")
         return 1
     except Exception as e:
@@ -190,9 +190,9 @@ def setup_command(args):
         if args.test:
             print("\n🧪 Testing configuration...")
             try:
-                analyzer = JobAnalyzer(api_key, base_url=endpoint, default_model=model)
+                analyzer = TextAnalyzer(api_key, base_url=endpoint, default_model=model)
                 # Simple test with a minimal job description
-                test_result = analyzer.analyze_job_description("Software Engineer position requiring Python skills.")
+                test_result = analyzer.analyze("Software Engineer position requiring Python skills.")
                 print("✅ Configuration test successful!")
             except Exception as e:
                 print(f"⚠️  Configuration test failed: {e}")
@@ -395,10 +395,10 @@ def main():
         return setup_command(args)
     elif args.command == 'config':
         return config_command(args)
-    elif args.command == 'format-resume':
-        return format_resume_command(args)
-    elif args.command == 'analyze-job':
-        return analyze_job_command(args)
+    elif args.command == 'format-document':
+        return format_document_command(args)
+    elif args.command == 'analyze-text':
+        return analyze_text_command(args)
     elif args.command == 'version':
         from . import __version__
         print(f"beetune {__version__}")
