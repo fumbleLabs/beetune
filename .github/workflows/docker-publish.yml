@@ -45,7 +45,7 @@ jobs:
       uses: docker/metadata-action@v5
       with:
         images: |
-          ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          ${{ env.REGISTRY }}/${{ github.repository }}
           fumbl3b/beetune
         tags: |
           type=ref,event=branch
@@ -69,4 +69,6 @@ jobs:
     - name: Test Docker image
       if: github.event_name == 'pull_request'
       run: |
-        docker run --rm ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.meta.outputs.version }} --help
+        # Use the first tag from metadata which will be properly lowercase
+        FIRST_TAG=$(echo "${{ steps.meta.outputs.tags }}" | head -n1)
+        docker run --rm ${FIRST_TAG} --help
