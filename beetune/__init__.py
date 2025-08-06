@@ -1,11 +1,11 @@
 """
-beetune - Open-source resume analysis and LaTeX formatting engine.
+beetune - Open-source document analysis and formatting engine.
 
 This package provides tools for:
-- Extracting text from resume files
-- Analyzing job descriptions
-- Formatting resumes as professional LaTeX documents
-- Generating AI-powered resume suggestions
+- Extracting text from files
+- Analyzing text
+- Formatting documents as professional LaTeX documents
+- Generating AI-powered suggestions
 """
 
 __version__ = "0.1.0"
@@ -13,42 +13,35 @@ __author__ = "Harry Winkler"
 __email__ = "harry@fumblebee.site"
 
 # Core functionality imports
-from .analyzers import JobAnalyzer, ResumeAnalyzer
 from .config import AIProvider, Config, ConfigError, get_config
 from .extractors import FileProcessor, FileUploadSecurity
-from .formatters import ResumeFormatter, UnifiedLatexConverter
-from .prompts import OutputFormat, PromptTone, gen_benefits, gen_keywords
-from .utils import BeetuneException, ProcessingError, ValidationError
+from .processors import TextAnalyzer
+from .prompts import OutputFormat, PromptTone, gen_analysis, gen_suggestions
+from .renderers import DocumentStyler, UnifiedLatexConverter
+from .utils import BeetuneError, ProcessingError, ValidationError
 
 __all__ = [
     # Version info
     "__version__",
-    "__author__", 
+    "__author__",
     "__email__",
-    
     # Extractors
     "FileProcessor",
     "FileUploadSecurity",
-    
-    # Formatters
-    "ResumeFormatter", 
+    # Renderers
+    "DocumentStyler",
     "UnifiedLatexConverter",
-    
-    # Analyzers
-    "JobAnalyzer",
-    "ResumeAnalyzer",
-    
+    # Processors
+    "TextAnalyzer",
     # Prompts
     "PromptTone",
-    "OutputFormat", 
-    "gen_keywords",
-    "gen_benefits",
-    
+    "OutputFormat",
+    "gen_analysis",
+    "gen_suggestions",
     # Exceptions
-    "BeetuneException",
-    "ValidationError", 
+    "BeetuneError",
+    "ValidationError",
     "ProcessingError",
-    
     # Configuration
     "Config",
     "AIProvider",

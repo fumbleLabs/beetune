@@ -108,8 +108,8 @@ beetune config --list
 
 ```python
 from beetune.extractors import FileProcessor
-from beetune.formatters import ResumeFormatter
-from beetune.analyzers import JobAnalyzer
+from beetune.renderers import DocumentStyler
+from beetune.processors import TextAnalyzer
 
 # Extract text from a resume file
 with open('resume.pdf', 'rb') as f:
@@ -138,13 +138,12 @@ latex_content = formatter.format_resume(resume_text)
 - `FileProcessor`: Extract text from various file formats
 - `FileUploadSecurity`: Validate and secure file uploads
 
-### Formatters  
-- `ResumeFormatter`: Convert resumes to LaTeX with professional styling
+### Renderers
+- `DocumentStyler`: Convert documents to LaTeX with professional styling
 - `UnifiedLatexConverter`: Compile LaTeX to PDF with validation
 
-### Analyzers
-- `JobAnalyzer`: Extract insights from job descriptions
-- `ResumeAnalyzer`: Analyze resume content and suggest improvements
+### Processors
+- `TextAnalyzer`: Extract insights from documents and suggest improvements
 
 ### Prompts
 - Enhanced prompt generation with parameterization support

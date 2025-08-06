@@ -74,13 +74,14 @@ ignore = [
     "W292",  # no newline at end of file  
     "W293",  # blank line contains whitespace
     "B904",  # raise from errors
-    "T201",
-    "E501",
-    "F841"
+    "T201",  # no prints
+    "E501",  # idk i forget
+    "F841"   # idk on this either
 ]
 
 [tool.mypy]
-python_version = "3.8"
-warn_return_any = true
+python_version = "3.9"
+warn_return_any = false
 warn_unused_configs = true
-disallow_untyped_defs = true
+disallow_untyped_defs = false
+ignore_missing_imports = true

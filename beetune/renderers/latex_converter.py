@@ -42,7 +42,7 @@ class UnifiedLatexConverter:
     - Installation validation
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize the converter and validate LaTeX installation."""
         self.validate_latex_installation()
 
