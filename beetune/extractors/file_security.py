@@ -17,7 +17,7 @@ class FileUploadSecurity:
 
     # Default allowed file extensions
     DEFAULT_ALLOWED_EXTENSIONS = {"pdf", "doc", "docx", "tex"}
-    
+
     # MIME type mappings for allowed file extensions
     ALLOWED_MIME_TYPES: Dict[str, Set[str]] = {
         "pdf": {"application/pdf"},
@@ -32,7 +32,7 @@ class FileUploadSecurity:
     def __init__(self, allowed_extensions: Optional[Set[str]] = None):
         """
         Initialize file security validator.
-        
+
         Args:
             allowed_extensions: Set of allowed file extensions. If None, uses defaults.
         """
@@ -72,26 +72,27 @@ class FileUploadSecurity:
     def _secure_filename(self, filename: str) -> str:
         """
         Generate a secure filename by removing dangerous characters.
-        
+
         Args:
             filename: Original filename
-            
+
         Returns:
             Secure filename
         """
         # Basic secure filename implementation
         # Remove path separators and other dangerous characters
         import re
+
         filename = filename.replace("../", "_")
-        filename = re.sub(r'[^a-zA-Z0-9._-]', '_', filename)
-        
+        filename = re.sub(r"[^a-zA-Z0-9._-]", "_", filename)
+
         # Remove leading dots and underscores
-        filename = filename.lstrip('._')
-        
+        filename = filename.lstrip("._")
+
         # Ensure filename isn't empty after cleaning
         if not filename:
             return "upload"
-            
+
         return filename
 
     def _validate_extension(self, filename: str) -> None:
@@ -149,7 +150,7 @@ class FileUploadSecurity:
         try:
             current_pos = file_stream.tell()
             file_stream.seek(0)
-            
+
             file_header = file_stream.read(1024)
             file_stream.seek(0)
             file_content = file_stream.read()

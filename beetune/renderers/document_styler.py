@@ -1,4 +1,3 @@
-import re
 from enum import Enum
 from typing import Any, Dict, List
 
@@ -87,9 +86,7 @@ class DocumentStyler:
         return "\n".join(latex_content)
 
     @staticmethod
-    def generate_latex_header(
-        style: LaTeXStyle = LaTeXStyle.MODERN
-    ) -> str:
+    def generate_latex_header(style: LaTeXStyle = LaTeXStyle.MODERN) -> str:
         """
         Generate LaTeX document header.
 

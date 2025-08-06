@@ -19,14 +19,14 @@ class FileProcessor:
     def extract_text(file_stream: BinaryIO, filename: str) -> str:
         """
         Extract text content from a file stream.
-        
+
         Args:
             file_stream: Binary file stream to process
             filename: Original filename to determine processing method
-            
+
         Returns:
             Extracted text content
-            
+
         Raises:
             ProcessingError: If file type is unsupported or extraction fails
         """

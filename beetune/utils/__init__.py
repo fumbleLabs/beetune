@@ -15,7 +15,7 @@ from .exceptions import (
 
 __all__ = [
     "BeetuneError",
-    "ValidationError", 
+    "ValidationError",
     "ProcessingError",
     "OpenAIError",
     "LaTeXError",

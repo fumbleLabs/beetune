@@ -13,41 +13,35 @@ __author__ = "Harry Winkler"
 __email__ = "harry@fumblebee.site"
 
 # Core functionality imports
-from .processors import TextAnalyzer
 from .config import AIProvider, Config, ConfigError, get_config
 from .extractors import FileProcessor, FileUploadSecurity
-from .renderers import DocumentStyler, UnifiedLatexConverter
+from .processors import TextAnalyzer
 from .prompts import OutputFormat, PromptTone, gen_analysis, gen_suggestions
+from .renderers import DocumentStyler, UnifiedLatexConverter
 from .utils import BeetuneError, ProcessingError, ValidationError
 
 __all__ = [
     # Version info
     "__version__",
-    "__author__", 
+    "__author__",
     "__email__",
-    
     # Extractors
     "FileProcessor",
     "FileUploadSecurity",
-    
     # Renderers
-    "DocumentStyler", 
+    "DocumentStyler",
     "UnifiedLatexConverter",
-    
     # Processors
     "TextAnalyzer",
-    
     # Prompts
     "PromptTone",
-    "OutputFormat", 
+    "OutputFormat",
     "gen_analysis",
     "gen_suggestions",
-    
     # Exceptions
     "BeetuneError",
-    "ValidationError", 
+    "ValidationError",
     "ProcessingError",
-    
     # Configuration
     "Config",
     "AIProvider",

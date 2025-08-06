@@ -13,8 +13,8 @@ from .generators import (
 )
 
 __all__ = [
-    "PromptTone", 
+    "PromptTone",
     "OutputFormat",
     "gen_analysis",
-    "gen_suggestions", 
+    "gen_suggestions",
 ]
