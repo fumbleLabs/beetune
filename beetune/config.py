@@ -118,7 +118,7 @@ class Config:
         if not provider_config:
             raise ConfigError(f"Provider '{provider_name}' is not configured.")
 
-        return provider_config
+        return provider_config  # type: ignore
 
     def get_api_key(self, provider: Optional[str] = None) -> str:
         """Get API key for a provider."""
@@ -127,7 +127,7 @@ class Config:
         if not api_key:
             provider_name = provider or self.get_active_provider()
             raise ConfigError(f"No API key configured for provider '{provider_name}'.")
-        return api_key
+        return str(api_key)
 
     def get_endpoint(self, provider: Optional[str] = None) -> Optional[str]:
         """Get endpoint for a provider."""

@@ -7,7 +7,7 @@ import argparse
 from .server import app
 
 
-def main():
+def main() -> None:
     """Main entry point for module execution."""
     parser = argparse.ArgumentParser(description="beetune server")
     parser.add_argument("--host", default="0.0.0.0", help="Host to bind to")

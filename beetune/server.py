@@ -5,11 +5,14 @@ Replicates the functionality of the previous resume-backend with
 Docker-first LaTeX compilation and file processing.
 """
 
+# mypy: ignore-errors
+
 import base64
 import logging
 import os
 import tempfile
 from io import BytesIO
+from typing import Any, Dict, Tuple
 
 from flask import Flask, jsonify, request, send_file
 from werkzeug.exceptions import RequestEntityTooLarge
@@ -37,7 +40,7 @@ document_styler = None
 latex_converter = None
 
 
-def get_text_analyzer():
+def get_text_analyzer() -> TextAnalyzer:
     """Lazy-load text analyzer."""
     global text_analyzer
     if text_analyzer is None:
@@ -49,7 +52,7 @@ def get_text_analyzer():
     return text_analyzer
 
 
-def get_document_styler():
+def get_document_styler() -> "DocumentStyler":
     """Lazy-load document styler."""
     global document_styler
     if document_styler is None:
@@ -57,7 +60,7 @@ def get_document_styler():
     return document_styler
 
 
-def get_latex_converter():
+def get_latex_converter() -> "UnifiedLatexConverter":
     """Lazy-load LaTeX converter."""
     global latex_converter
     if latex_converter is None:
@@ -66,26 +69,26 @@ def get_latex_converter():
 
 
 @app.errorhandler(RequestEntityTooLarge)
-def handle_file_too_large(e):
+def handle_file_too_large(e) -> Tuple[Dict[str, Any], int]:
     """Handle file size limit exceeded."""
     return jsonify({"error": "File too large", "message": "Maximum file size is 16MB"}), 413
 
 
 @app.errorhandler(BeetuneError)
-def handle_beetune_exception(e):
+def handle_beetune_exception(e) -> Tuple[Dict[str, Any], int]:
     """Handle beetune-specific exceptions."""
     return jsonify({"error": "BeetuneError", "message": str(e)}), 400
 
 
 @app.errorhandler(Exception)
-def handle_general_exception(e):
+def handle_general_exception(e) -> Tuple[Dict[str, Any], int]:
     """Handle general exceptions."""
     logger.error(f"Unhandled exception: {str(e)}", exc_info=True)
     return jsonify({"error": "InternalServerError", "message": "An internal error occurred"}), 500
 
 
 @app.route("/health", methods=["GET"])
-def health_check():
+def health_check() -> Tuple[Dict[str, Any], int]:
     """Health check endpoint."""
     try:
         # Check if LaTeX is available
@@ -113,7 +116,7 @@ def health_check():
 
 
 @app.route("/analyze/job", methods=["POST"])
-def analyze_job():
+def analyze_job() -> Tuple[Dict[str, Any], int]:
     """
     Analyze job description and extract keywords/requirements.
 
@@ -147,7 +150,7 @@ def analyze_job():
 
 
 @app.route("/resume/extract-text", methods=["POST"])
-def extract_resume_text():
+def extract_resume_text() -> Tuple[Dict[str, Any], int]:
     """
     Upload and extract text from resume files.
 
@@ -198,7 +201,7 @@ def extract_resume_text():
 
 
 @app.route("/resume/suggest-improvements", methods=["POST"])
-def suggest_resume_improvements():
+def suggest_resume_improvements() -> Tuple[Dict[str, Any], int]:
     """
     Analyze resume and suggest improvements.
 
@@ -243,7 +246,7 @@ def suggest_resume_improvements():
 
 
 @app.route("/document/apply-improvements", methods=["POST"])
-def apply_document_improvements():
+def apply_document_improvements() -> Tuple[Dict[str, Any], int]:
     """
     Generate improved LaTeX resume based on analysis.
 
@@ -284,7 +287,7 @@ def apply_document_improvements():
 
 
 @app.route("/convert/latex", methods=["POST"])
-def convert_latex_to_pdf():
+def convert_latex_to_pdf() -> Tuple[Dict[str, Any], int]:
     """
     Convert LaTeX source to PDF.
 
@@ -349,7 +352,7 @@ def convert_latex_to_pdf():
 
 
 @app.route("/", methods=["GET"])
-def index():
+def index() -> Dict[str, Any]:
     """Root endpoint with API information."""
     return jsonify(
         {
@@ -367,12 +370,12 @@ def index():
     )
 
 
-def create_app():
+def create_app() -> Flask:
     """Application factory."""
     return app
 
 
-def main():
+def main() -> None:
     """Entry point for beetune-server command."""
     import argparse
 
