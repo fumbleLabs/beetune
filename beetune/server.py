@@ -15,6 +15,7 @@ from io import BytesIO
 from typing import Any, Dict, Tuple
 
 from flask import Flask, jsonify, request, send_file
+from flask_cors import CORS
 from werkzeug.exceptions import RequestEntityTooLarge
 from werkzeug.utils import secure_filename
 
@@ -31,6 +32,9 @@ logger = logging.getLogger(__name__)
 # Create Flask app
 app = Flask(__name__)
 app.config["MAX_CONTENT_LENGTH"] = 16 * 1024 * 1024  # 16MB max file size
+
+# Configure CORS for local development
+CORS(app, origins=["http://localhost:3000"], supports_credentials=True)
 
 # Global instances
 file_processor = FileProcessor()
