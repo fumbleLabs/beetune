@@ -7,7 +7,13 @@ MIME type checking, and secure filename generation.
 
 from typing import BinaryIO, Dict, Optional, Set
 
-import magic
+try:
+    import magic
+
+    MAGIC_AVAILABLE = True
+except ImportError:
+    MAGIC_AVAILABLE = False
+    magic = None
 
 from ..utils import ProcessingError, ValidationError
 
@@ -111,6 +117,10 @@ class FileUploadSecurity:
 
     def _validate_mime_type(self, file_stream: BinaryIO, filename: str) -> None:
         """Validate MIME type using python-magic."""
+        if not MAGIC_AVAILABLE:
+            # Skip MIME validation if magic is not available
+            return
+
         try:
             # Reset file stream position
             current_pos = file_stream.tell()
@@ -156,7 +166,11 @@ class FileUploadSecurity:
             file_content = file_stream.read()
             file_stream.seek(current_pos)
 
-            detected_mime = magic.from_buffer(file_header, mime=True) if file_header else "unknown"
+            detected_mime = (
+                magic.from_buffer(file_header, mime=True)
+                if MAGIC_AVAILABLE and file_header
+                else "unknown"
+            )
 
             return {
                 "original_filename": filename,

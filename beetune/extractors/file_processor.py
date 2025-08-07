@@ -7,9 +7,15 @@ Provides secure text extraction from various file formats including PDF, DOCX, a
 from typing import BinaryIO
 
 import docx
-import PyPDF2
 
 from ..utils import ProcessingError
+
+try:
+    import pypdf
+
+    PyPDF2 = pypdf  # Use pypdf as PyPDF2
+except ImportError:
+    import PyPDF2  # Fallback to old PyPDF2 if pypdf not available
 
 
 class FileProcessor:
