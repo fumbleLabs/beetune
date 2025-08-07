@@ -124,7 +124,7 @@ def analyze_job() -> Tuple[Dict[str, Any], int]:
     {
         "job_description": "Job description text..."
     }
-    
+
     Returns analyzed content with insights and key information.
     """
     try:
@@ -179,11 +179,11 @@ def extract_resume_text() -> Tuple[Dict[str, Any], int]:
 
             try:
                 # Validate file - use the proper validation method
-                with open(temp_file.name, 'rb') as validation_file:
+                with open(temp_file.name, "rb") as validation_file:
                     file_security.validate_file_upload(validation_file, filename)
 
                 # Extract text
-                with open(temp_file.name, 'rb') as f:
+                with open(temp_file.name, "rb") as f:
                     extracted_text = file_processor.extract_text(f, filename)
 
                 return jsonify({"success": True, "text": extracted_text, "filename": filename}), 200
@@ -210,7 +210,7 @@ def suggest_resume_improvements() -> Tuple[Dict[str, Any], int]:
         "resume_text": "Resume text...",
         "job_description": "Job description text..." (optional)
     }
-    
+
     If job_description is provided, gives targeted suggestions.
     Otherwise, provides general resume analysis.
     """
@@ -260,7 +260,7 @@ def apply_document_improvements() -> Tuple[Dict[str, Any], int]:
         "improvements": [...], # List of improvements (currently not used)
         "template": "professional" (optional) # professional=modern, other=classic
     }
-    
+
     Returns LaTeX-formatted document source code.
     """
     try:
@@ -281,9 +281,10 @@ def apply_document_improvements() -> Tuple[Dict[str, Any], int]:
         # Generate LaTeX document
         formatter = get_document_styler()
         # Convert resume_data to text format (assuming it's a dict with text content)
-        resume_text = str(resume_data.get('content', resume_data))
+        resume_text = str(resume_data.get("content", resume_data))
         from .renderers import LaTeXStyle
-        style = LaTeXStyle.MODERN if template == 'professional' else LaTeXStyle.CLASSIC
+
+        style = LaTeXStyle.MODERN if template == "professional" else LaTeXStyle.CLASSIC
         latex_source = formatter.style_document(resume_text, style)
 
         return jsonify({"success": True, "latex_source": latex_source}), 200
