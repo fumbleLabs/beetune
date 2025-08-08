@@ -122,12 +122,14 @@ def health_check() -> Tuple[Dict[str, Any], int]:
 @app.route("/analyze/job", methods=["POST"])
 def analyze_job() -> Tuple[Dict[str, Any], int]:
     """
-    Analyze job description and extract keywords/requirements.
+    Analyze job description text using AI.
 
     Expected JSON payload:
     {
         "job_description": "Job description text..."
     }
+
+    Returns analyzed content with insights and key information.
     """
     try:
         if not get_config().is_configured():
@@ -144,7 +146,7 @@ def analyze_job() -> Tuple[Dict[str, Any], int]:
 
         # Perform analysis
         analyzer = get_text_analyzer()
-        result = analyzer.analyze_job_description(job_description)
+        result = analyzer.analyze(job_description)
 
         return jsonify({"success": True, "analysis": result}), 200
 
@@ -168,8 +170,10 @@ def extract_resume_text() -> Tuple[Dict[str, Any], int]:
         if file.filename == "":
             return jsonify({"error": "BadRequest", "message": "No file selected"}), 400
 
-        # Security validation
-        if not file_security.is_allowed_file(file.filename):
+        # Security validation - check file extension
+        try:
+            file_security._validate_extension(file.filename or "")
+        except Exception:
             return jsonify({"error": "InvalidFileType", "message": "File type not allowed"}), 400
 
         # Save file temporarily
@@ -178,17 +182,13 @@ def extract_resume_text() -> Tuple[Dict[str, Any], int]:
             file.save(temp_file.name)
 
             try:
-                # Validate file
-                if not file_security.validate_file(temp_file.name):
-                    return (
-                        jsonify(
-                            {"error": "SecurityError", "message": "File failed security validation"}
-                        ),
-                        400,
-                    )
+                # Validate file - use the proper validation method
+                with open(temp_file.name, "rb") as validation_file:
+                    file_security.validate_file_upload(validation_file, filename)
 
                 # Extract text
-                extracted_text = file_processor.extract_text(temp_file.name)
+                with open(temp_file.name, "rb") as f:
+                    extracted_text = file_processor.extract_text(f, filename)
 
                 return jsonify({"success": True, "text": extracted_text, "filename": filename}), 200
 
@@ -207,13 +207,16 @@ def extract_resume_text() -> Tuple[Dict[str, Any], int]:
 @app.route("/resume/suggest-improvements", methods=["POST"])
 def suggest_resume_improvements() -> Tuple[Dict[str, Any], int]:
     """
-    Analyze resume and suggest improvements.
+    Analyze resume text and suggest improvements using AI.
 
     Expected JSON payload:
     {
         "resume_text": "Resume text...",
         "job_description": "Job description text..." (optional)
     }
+
+    If job_description is provided, gives targeted suggestions.
+    Otherwise, provides general resume analysis.
     """
     try:
         if not get_config().is_configured():
@@ -234,10 +237,11 @@ def suggest_resume_improvements() -> Tuple[Dict[str, Any], int]:
 
         if job_description:
             # Targeted analysis with job description
-            result = analyzer.analyze_resume_against_job(resume_text, job_description)
+            goal = f"Improve this resume to better match this job description: {job_description}"
+            result = analyzer.suggest_improvements(resume_text, goal)
         else:
             # General resume analysis
-            result = analyzer.analyze_resume(resume_text)
+            result = analyzer.analyze(resume_text)
 
         return jsonify({"success": True, "analysis": result}), 200
 
@@ -252,14 +256,16 @@ def suggest_resume_improvements() -> Tuple[Dict[str, Any], int]:
 @app.route("/document/apply-improvements", methods=["POST"])
 def apply_document_improvements() -> Tuple[Dict[str, Any], int]:
     """
-    Generate improved LaTeX resume based on analysis.
+    Apply LaTeX styling to document text.
 
     Expected JSON payload:
     {
-        "resume_data": {...},  # Structured resume data
-        "improvements": [...], # List of improvements to apply
-        "template": "professional" (optional)
+        "resume_data": {...},  # Resume data (should contain 'content' field with text)
+        "improvements": [...], # List of improvements (currently not used)
+        "template": "professional" (optional) # professional=modern, other=classic
     }
+
+    Returns LaTeX-formatted document source code.
     """
     try:
         if not get_config().is_configured():
@@ -276,9 +282,14 @@ def apply_document_improvements() -> Tuple[Dict[str, Any], int]:
         improvements = data.get("improvements", [])
         template = data.get("template", "professional")
 
-        # Generate LaTeX resume
+        # Generate LaTeX document
         formatter = get_document_styler()
-        latex_source = formatter.format_resume(resume_data, template, improvements)
+        # Convert resume_data to text format (assuming it's a dict with text content)
+        resume_text = str(resume_data.get("content", resume_data))
+        from .renderers import LaTeXStyle
+
+        style = LaTeXStyle.MODERN if template == "professional" else LaTeXStyle.CLASSIC
+        latex_source = formatter.style_document(resume_text, style)
 
         return jsonify({"success": True, "latex_source": latex_source}), 200
 
@@ -367,7 +378,7 @@ def index() -> Dict[str, Any]:
                 "analyze_job": "POST /analyze/job",
                 "extract_text": "POST /resume/extract-text",
                 "suggest_improvements": "POST /resume/suggest-improvements",
-                "apply_improvements": "POST /resume/apply-improvements",
+                "apply_improvements": "POST /document/apply-improvements",
                 "convert_latex": "POST /convert/latex",
             },
         }
